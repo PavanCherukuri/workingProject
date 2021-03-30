@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Bootstrap 4 Drop Down Menu</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+   </head>
+   <body>
+      <sly    data-sly-use.clientlib="${'/libs/granite/sightly/templates/clientlib.html'}"
+         data-sly-call="${clientLib.all @ categories='nav.site'}"/>
+      <sly data-sly-use.navPages="com.mindtree.workingProject.core.models.NavigableHeader"></sly>
+      <sly data-sly-use.topnav="TopNav"></sly>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+         <a class="navbar-brand" href="#">Plant Valley</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+               <li class="nav-item" style="color:red;" data-sly-repeat="${topnav.items}">
+                  <a class="nav-link" href="${item.path}.html">${item.title}</a>
+               </li>
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                     <li class="dropdown-item" data-sly-repeat="${navPages.getMoreChildPages}">
+                        <a class="nav-link" style="color:black;" href="${item.path}.html">${item.title}</a>
+                     </li>
+                  </ul>
+               </li>
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="/content/workingProject/en/manure.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  more Plants
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                     <li class="dropdown-item" data-sly-repeat="${navPages.getMoreChildPages}">
+                        <a class="nav-link" style="color:black;" href="${item.path}.html">${item.parent.title}</a>
+                        <sly data-sly-test="${item.parent.title}=='plants'">
+                           <p>true</p>
+                        </sly>
+                     </li>
+                  </ul>
+               </li>
+            </ul>
+         </div>
+      </nav>
+   </body>
+</html>
